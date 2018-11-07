@@ -34,6 +34,9 @@ def zabbix_trapper(cmd_args):
 def pingdom_data(pingdom_response):
     data = []
     for check in pingdom_response.json()['checks']:
+        if check['status'] == 'paused':
+            continue
+
         data.append({
             'name': check['name'],
             'status': check['status'],
